@@ -3,584 +3,183 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="E-portfolio för Simon Lindh Wågström – student vid KTH. Projekt, case och erfarenheter." />
   <title>Simon Lindh Wågström — E-portfolio</title>
-
+  <meta name="description" content="E-portfolio för Simon Lindh Wågström. Projekt, erfarenhet och kontakt." />
   <style>
     :root{
-      --bg:#0b1220;
-      --panel:rgba(255,255,255,0.06);
-      --panel2:rgba(255,255,255,0.09);
-      --text:rgba(255,255,255,0.92);
-      --muted:rgba(255,255,255,0.68);
-      --border:rgba(255,255,255,0.12);
-      --accent:#7c5cff;
-      --accent2:#2de2e6;
-      --shadow:0 14px 40px rgba(0,0,0,0.35);
-      --r:16px;
-      --rl:22px;
-      --max:1100px;
+      --bg:#0f1220; --card:#171a2b; --text:#eef0ff; --muted:#b7bdd8; --border:#2a2f4a; --accent:#7c5cff;
+      --max: 900px;
+      --r: 12px;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
-      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
     }
     *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0; font-family:var(--sans); color:var(--text); line-height:1.55;
-      background:
-        radial-gradient(900px 450px at 18% 10%, rgba(124,92,255,0.35), transparent 60%),
-        radial-gradient(700px 420px at 90% 18%, rgba(45,226,230,0.25), transparent 55%),
-        radial-gradient(900px 520px at 60% 92%, rgba(124,92,255,0.18), transparent 60%),
-        var(--bg);
-    }
-    a{color:inherit; text-decoration:none}
-    a:hover{opacity:.92}
-    .wrap{max-width:var(--max); margin:0 auto; padding:26px 18px 64px}
-
+    body{margin:0; font-family:var(--sans); background:var(--bg); color:var(--text); line-height:1.45}
+    a{color:var(--text); text-decoration:none}
+    a:hover{opacity:.9}
+    .wrap{max-width:var(--max); margin:0 auto; padding:16px}
     header{
-      position:sticky; top:0; z-index:20;
-      backdrop-filter: blur(14px);
-      background: linear-gradient(to bottom, rgba(11,18,32,0.78), rgba(11,18,32,0.35));
-      border-bottom:1px solid rgba(255,255,255,0.07);
+      position:sticky; top:0; background:rgba(15,18,32,.92); backdrop-filter: blur(8px);
+      border-bottom:1px solid var(--border);
     }
-    .nav{
-      max-width:var(--max); margin:0 auto; padding:12px 18px;
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
+    .top{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      max-width:var(--max); margin:0 auto; padding:10px 16px;
     }
-    .brand{display:flex; align-items:center; gap:10px; min-width: 220px;}
-    .logo{
-      width:36px; height:36px; border-radius:12px;
-      background: conic-gradient(from 210deg, var(--accent), var(--accent2), var(--accent));
-      box-shadow: 0 10px 22px rgba(124,92,255,0.25);
-      position:relative; overflow:hidden;
-    }
-    .logo::after{
-      content:""; position:absolute; inset:-40%;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.45), transparent 55%);
-      transform: rotate(18deg);
-    }
-    .brand strong{font-weight:750; letter-spacing:.2px; display:block}
-    .brand span{color:var(--muted); font-size:13px; display:block; margin-top:-2px}
-
-    .navlinks{display:flex; gap:16px; flex-wrap:wrap; justify-content:flex-end; align-items:center;}
-    .navlinks a{
-      padding:8px 10px; border-radius:12px; color:var(--muted);
-      border:1px solid transparent; font-size:14px;
-    }
-    .navlinks a:hover{
-      color:var(--text);
-      border-color:rgba(255,255,255,0.10);
-      background: rgba(255,255,255,0.04);
-    }
-
-    .btn{
-      padding:10px 12px; border-radius:14px; border:1px solid rgba(255,255,255,0.13);
-      background: rgba(255,255,255,0.06); box-shadow: 0 10px 24px rgba(0,0,0,0.15);
-      color:var(--text); font-size:14px; cursor:pointer; display:inline-flex; align-items:center; gap:8px;
-    }
-    .btn:hover{background:rgba(255,255,255,0.09)}
-    .btn.primary{
-      border-color: rgba(124,92,255,0.55);
-      background: linear-gradient(135deg, rgba(124,92,255,0.95), rgba(45,226,230,0.70));
-      box-shadow: 0 18px 40px rgba(124,92,255,0.22);
-    }
-    .btn.primary:hover{filter:brightness(1.03)}
-    .cta{display:flex; gap:10px; align-items:center}
-
+    .name{font-weight:750}
+    nav{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+    nav a{color:var(--muted); font-size:14px; padding:6px 8px; border-radius:10px}
+    nav a:hover{background:rgba(255,255,255,.06); color:var(--text)}
     .card{
-      border-radius:var(--rl);
-      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
-      border:1px solid rgba(255,255,255,0.12);
-      box-shadow:var(--shadow);
+      background:var(--card); border:1px solid var(--border);
+      border-radius:var(--r); padding:12px; margin-top:10px;
     }
-
-    .hero{
-      padding:38px 0 16px;
-      display:grid;
-      grid-template-columns: 1.25fr 0.75fr;
-      gap:16px;
-      align-items:start;
-    }
-    .hero-main{padding:22px}
-    .kicker{
-      display:inline-flex; gap:8px; align-items:center;
-      padding:6px 10px; border-radius:999px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.10);
-      color: var(--muted);
-      font-family: var(--mono); font-size: 12px;
-    }
-    h1{margin:12px 0 8px; font-size: clamp(28px, 4vw, 44px); line-height:1.1; letter-spacing:-0.6px;}
-    .subtitle{margin:0 0 14px; color:var(--muted); font-size:16px; max-width:70ch;}
-    .hero-actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px;}
-    .note{color:var(--muted); font-size:12px; margin:0;}
-
-    .hero-side{padding:18px; display:flex; flex-direction:column; gap:12px;}
-    .side-row{display:flex; gap:14px; align-items:center;}
-    .avatar{
-      width:82px; height:82px; border-radius:22px;
-      background:
-        radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35), transparent 55%),
-        linear-gradient(135deg, rgba(124,92,255,0.9), rgba(45,226,230,0.65));
-      border:1px solid rgba(255,255,255,0.18);
-      box-shadow: 0 14px 30px rgba(0,0,0,0.25);
-      flex: 0 0 auto;
-    }
-    .side-row strong{display:block}
-    .side-row small{color:var(--muted); display:block; margin-top:2px}
-
-    .mini{
-      padding:12px; border-radius:var(--r);
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.10);
-    }
-    .mini h3{margin:0 0 8px; font-size:14px; letter-spacing:0.2px;}
-    .tags{display:flex; flex-wrap:wrap; gap:8px;}
-    .tag{
-      font-family:var(--mono); font-size:12px; color: rgba(255,255,255,0.78);
-      padding:6px 9px; border-radius:999px;
-      background: rgba(0,0,0,0.18);
-      border:1px solid rgba(255,255,255,0.10);
-    }
-
-    section{margin-top:18px; scroll-margin-top:90px;}
-    .section-head{
-      display:flex; align-items:flex-end; justify-content:space-between; gap:12px;
-      margin:18px 0 10px;
-    }
-    .section-head h2{margin:0; font-size:18px; letter-spacing:0.2px;}
-    .section-head p{margin:0; color:var(--muted); font-size:14px;}
-
-    .grid{display:grid; grid-template-columns: repeat(12, 1fr); gap:14px;}
-    .col-12{grid-column: span 12;}
-    .col-8{grid-column: span 8;}
-    .col-6{grid-column: span 6;}
-    .col-4{grid-column: span 4;}
-
-    .tile{
-      padding:16px; border-radius:var(--rl);
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.10);
-      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
-      position:relative; overflow:hidden;
-    }
-    .tile:hover{
-      transform: translateY(-2px);
-      background: rgba(255,255,255,0.07);
-      border-color: rgba(255,255,255,0.14);
-    }
-    .meta{
-      display:flex; justify-content:space-between; gap:10px; align-items:center;
+    h1{font-size:22px; margin:0 0 6px}
+    h2{font-size:16px; margin:0 0 8px}
+    p{margin:0 0 8px; color:var(--muted)}
+    .row{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+    .pill{
+      display:inline-block; padding:4px 8px; border:1px solid var(--border); border-radius:999px;
       color:var(--muted); font-size:12px; font-family:var(--mono);
     }
-    .tile h3{margin:10px 0 8px; font-size:16px;}
-    .tile p{margin:0; color:var(--muted); font-size:14px;}
-    .links{margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;}
-    .link{
-      padding:8px 10px; border-radius:12px;
-      border:1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.04);
-      font-size:13px; display:inline-flex; gap:8px; align-items:center;
+    .btn{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 10px; border-radius:10px; border:1px solid var(--border);
+      background:rgba(255,255,255,.04); color:var(--text); font-size:14px; cursor:pointer;
     }
-    .link:hover{background: rgba(255,255,255,0.07);}
-
-    .timeline{display:flex; flex-direction:column; gap:12px;}
-    .job{
-      padding:14px 16px; border-radius:var(--rl);
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.10);
-    }
-    .job-top{display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; align-items:baseline;}
-    .job-top strong{font-size:14px;}
-    .job-top span{color:var(--muted); font-size:12px; font-family:var(--mono);}
-    .job p{margin:8px 0 0; color:var(--muted); font-size:14px;}
-
-    .callout{
-      padding:14px 16px; border-radius:var(--rl);
-      background: linear-gradient(135deg, rgba(124,92,255,0.16), rgba(45,226,230,0.10));
-      border: 1px solid rgba(255,255,255,0.12);
-    }
-    .callout strong{display:block; margin-bottom:6px}
-    .callout p{margin:0; color:var(--muted); font-size:14px;}
-
-    .contact{
-      padding:18px;
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:14px;
-      align-items:start;
-    }
-    label{font-size:12px; color:var(--muted);}
-    input, textarea{
-      width:100%; padding:12px 12px; border-radius:14px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(0,0,0,0.18);
-      color: var(--text); outline:none; font-size:14px;
-    }
-    textarea{min-height:110px; resize:vertical; grid-column: span 2;}
-    input:focus, textarea:focus{
-      border-color: rgba(124,92,255,0.55);
-      box-shadow: 0 0 0 4px rgba(124,92,255,0.15);
-    }
-
-    footer{
-      margin-top:22px; padding:18px 0 0; color:var(--muted); font-size:13px;
-      display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
-      border-top: 1px solid rgba(255,255,255,0.08);
-    }
-    .pill{
-      font-family:var(--mono); font-size:12px;
-      padding:6px 10px; border-radius:999px;
-      border: 1px solid rgba(255,255,255,0.10);
-      background: rgba(255,255,255,0.04);
-    }
-
-    @media (max-width: 920px){
-      .hero{grid-template-columns: 1fr;}
-      .contact{grid-template-columns: 1fr;}
-      textarea{grid-column: span 1;}
-      .col-6,.col-4,.col-8{grid-column: span 12;}
-      .navlinks{display:none;}
-    }
-    @media (prefers-reduced-motion: reduce){
-      html{scroll-behavior:auto}
-      .tile{transition:none}
+    .btn:hover{background:rgba(255,255,255,.07)}
+    ul{margin:0; padding-left:18px; color:var(--muted)}
+    li{margin:6px 0}
+    .muted{color:var(--muted)}
+    footer{margin-top:12px; color:var(--muted); font-size:12px}
+    @media (max-width: 720px){
+      nav{display:none}
     }
   </style>
 </head>
 
 <body>
   <header>
-    <div class="nav">
-      <a class="brand" href="#top" aria-label="Gå till toppen">
-        <div class="logo" aria-hidden="true"></div>
-        <div>
-          <strong>Simon Lindh Wågström</strong>
-          <span>Student, M.Sc. Information Technology (KTH) · Stockholm</span>
-        </div>
-      </a>
-
-      <nav class="navlinks" aria-label="Navigering">
-        <a href="#portfolio">Projekt</a>
-        <a href="#award">Utmärkelse</a>
+    <div class="top">
+      <div>
+        <div class="name">Simon Lindh Wågström</div>
+        <div class="muted" style="font-size:13px">KTH · M.Sc. Information Technology (2024–2029) · Stockholm</div>
+      </div>
+      <nav aria-label="Navigering">
+        <a href="#projects">Projekt</a>
         <a href="#experience">Erfarenhet</a>
         <a href="#education">Utbildning</a>
         <a href="#contact">Kontakt</a>
       </nav>
-
-      <div class="cta">
-        <!-- TODO: replace # with your actual LinkedIn/GitHub URLs -->
-        <a class="btn" href="#" target="_blank" rel="noreferrer">LinkedIn</a>
-        <a class="btn" href="#" target="_blank" rel="noreferrer">GitHub</a>
-        <a class="btn primary" href="#contact">Kontakta</a>
-      </div>
     </div>
   </header>
 
-  <main id="top" class="wrap">
-    <div class="hero">
-      <div class="card hero-main">
-        <div class="kicker">E-portfolio (publik) · konkreta exempel · uppdateras löpande</div>
-        <h1>UI/UX + IT — jag bygger tydliga gränssnitt och praktiska lösningar.</h1>
-        <p class="subtitle">
-          Jag är student vid KTH (M.Sc. Information Technology, 2024–2029) med erfarenhet av UI/UX-design (praktik på
-          HP-appen) och operativt teamarbete (Sellpy). Här samlar jag projekt, case och resultat som visar vad jag faktiskt kan göra.
-        </p>
+  <main class="wrap">
+    <section class="card" id="top">
+      <h1>E-portfolio</h1>
+      <p>
+        Jag är student vid KTH med fokus på IT och UI/UX. Den här sidan innehåller konkreta exempel på vad jag gjort,
+        och hur du kan nå mig.
+      </p>
 
-        <div class="hero-actions">
-          <a class="btn primary" href="#portfolio">Se projekt</a>
-          <!-- TODO: add a public PDF and set href to it -->
-          <a class="btn" href="#" download>Ladda ner CV (PDF)</a>
-          <button class="btn" id="copyEmailBtn" type="button">Kopiera e-post</button>
-        </div>
-
-        <div style="margin-top:14px" class="callout">
-          <strong>Viktigt (integritet & kursregler)</strong>
-          <p>
-            Jag publicerar inte lösningar till examinationsmoment i andra kurser. Projekt här är antingen egna arbeten,
-            öppna casebeskrivningar eller material jag har rätt att dela.
-          </p>
-        </div>
+      <div class="row" style="margin-top:6px">
+        <span class="pill">UI/UX</span>
+        <span class="pill">Figma</span>
+        <span class="pill">Teamwork</span>
+        <span class="pill">Web</span>
       </div>
 
-      <aside class="card hero-side">
-        <div class="side-row">
-          <div class="avatar" aria-hidden="true"></div>
-          <div>
-            <strong>Kontakt</strong>
-            <!-- TODO: replace with real contact details you want public -->
-            <small><span id="emailText">your.email@example.com</span></small>
-            <small>Stockholm, Sverige</small>
-          </div>
-        </div>
-
-        <div class="mini">
-          <h3>Fokusområden</h3>
-          <div class="tags">
-            <span class="tag">UI/UX</span>
-            <span class="tag">Figma</span>
-            <span class="tag">Prototyping</span>
-            <span class="tag">Web</span>
-            <span class="tag">Teamwork</span>
-          </div>
-        </div>
-
-        <div class="mini">
-          <h3>Snabbprofil</h3>
-          <p class="note">
-            Student vid KTH. Intresserad av att kombinera design, användbarhet och teknik för att skapa lösningar som fungerar i praktiken.
-          </p>
-        </div>
-
-        <div class="mini">
-          <h3>Öppen för</h3>
-          <div class="tags">
-            <span class="tag">Sommarjobb</span>
-            <span class="tag">Praktik</span>
-            <span class="tag">Deltid</span>
-          </div>
-        </div>
-      </aside>
-    </div>
-
-    <!-- Projects / Portfolio -->
-    <section id="portfolio">
-      <div class="section-head">
-        <h2>Projekt & case (konkreta exempel)</h2>
-        <p>Det här är kärnan i E-portfolion: vad jag byggt, designat eller levererat.</p>
+      <div class="row" style="margin-top:10px">
+        <!-- TODO: set your real links -->
+        <a class="btn" href="#" target="_blank" rel="noreferrer">LinkedIn</a>
+        <a class="btn" href="#" target="_blank" rel="noreferrer">GitHub</a>
+        <button class="btn" id="copyEmailBtn" type="button">Kopiera e-post</button>
       </div>
 
-      <div class="grid">
-        <!-- TODO: Replace with your best project(s). Add screenshots or short gifs if you have rights to share. -->
-        <article class="tile col-6">
-          <div class="meta">
-            <span>Case study · UI/UX</span>
-            <span>Figma</span>
-          </div>
-          <h3>HP-appen — UI/UX praktik (urval)</h3>
-          <p>
-            Beskriv 1–2 konkreta leveranser: t.ex. prototyper, komponenter, användartester, förbättrad flow eller designbeslut.
-            Lägg gärna in anonymiserade skärmdumpar om du får.
-          </p>
-          <div class="links">
-            <a class="link" href="#" target="_blank" rel="noreferrer">Case (PDF/Notion) →</a>
-            <a class="link" href="#" target="_blank" rel="noreferrer">Figma (view) ↗</a>
-          </div>
-        </article>
-
-        <article class="tile col-6">
-          <div class="meta">
-            <span>Hackathon · 2023</span>
-            <span>“Best Technical Solution”</span>
-          </div>
-          <h3>ResQ — #HackYourWorld 2023 (Vinnare)</h3>
-          <p>
-            Vinnare “Bästa Tekniska Lösning”. Förklara problemet, idén, vad du byggde (din del),
-            och hur lösningen demonstrerades. Lägg till bilder/diagram som du äger.
-          </p>
-          <div class="links">
-            <a class="link" href="#" target="_blank" rel="noreferrer">Demo / slides →</a>
-            <a class="link" href="#" target="_blank" rel="noreferrer">Repo / docs ↗</a>
-          </div>
-        </article>
-
-        <article class="tile col-4">
-          <div class="meta">
-            <span>Projekt</span>
-            <span>KTH / eget</span>
-          </div>
-          <h3>Projekt (TODO): kurs- eller hobbyprojekt</h3>
-          <p>
-            Skriv en kort, begriplig beskrivning för en utomstående. Undvik att publicera exam-lösningar;
-            länka hellre till en översikt/rapport utan känsligt innehåll.
-          </p>
-          <div class="links">
-            <a class="link" href="#" target="_blank" rel="noreferrer">Översikt →</a>
-          </div>
-        </article>
-
-        <article class="tile col-4">
-          <div class="meta">
-            <span>Design</span>
-            <span>System / komponenter</span>
-          </div>
-          <h3>Mini design system (TODO)</h3>
-          <p>
-            Exempel på komponenter, spacing, typografi och tillgänglighet. Visa beslut och konsekvenser.
-          </p>
-          <div class="links">
-            <a class="link" href="#" target="_blank" rel="noreferrer">Preview ↗</a>
-          </div>
-        </article>
-
-        <article class="tile col-4">
-          <div class="meta">
-            <span>Certifiering</span>
-            <span>Feb 2026</span>
-          </div>
-          <h3>Lovable — Vibe Coding (L1: Bronze)</h3>
-          <p>
-            Kort reflektion: vad du lärde dig och hur du använder det i projekt (t.ex. prototyping/automation).
-          </p>
-          <div class="links">
-            <a class="link" href="#" target="_blank" rel="noreferrer">Intyg / badge ↗</a>
-          </div>
-        </article>
-      </div>
+      <p class="muted" style="margin-top:8px; font-size:12px">
+        Obs: Jag publicerar inte lösningar till examinationsmoment i andra kurser.
+      </p>
     </section>
 
-    <!-- Award -->
-    <section id="award">
-      <div class="section-head">
-        <h2>Utmärkelse</h2>
-        <p>Bevis på prestation i relevant sammanhang.</p>
-      </div>
+    <section class="card" id="projects">
+      <h2>Projekt & case</h2>
+      <ul>
+        <li>
+          <strong style="color:var(--text)">HP-appen — UI/UX praktik (Mar 2023–Sep 2023)</strong><br/>
+          <span class="muted">Urval av prototyper/iterationer (Figma) + kort casebeskrivning.</span>
+          <!-- TODO: add links -->
+          <div class="row" style="margin-top:6px">
+            <a class="btn" href="#" target="_blank" rel="noreferrer">Case</a>
+            <a class="btn" href="#" target="_blank" rel="noreferrer">Figma</a>
+          </div>
+        </li>
 
-      <div class="callout">
-        <strong>Vinnare: “Bästa Tekniska Lösning” — #HackYourWorld 2023 (ResQ)</strong>
-        <p>
-          Issued by IBM, Ericsson, Space Academy, Kista Science City (Feb 2023). Beskriv gärna kriterier och vad juryn uppskattade
-          (om det är offentligt), samt din specifika contribution.
-        </p>
-      </div>
+        <li>
+          <strong style="color:var(--text)">ResQ — #HackYourWorld 2023 (Vinnare “Bästa Tekniska Lösning”)</strong><br/>
+          <span class="muted">Problem → lösning → min del → demo/material.</span>
+          <!-- TODO: add links -->
+          <div class="row" style="margin-top:6px">
+            <a class="btn" href="#" target="_blank" rel="noreferrer">Demo/Slides</a>
+            <a class="btn" href="#" target="_blank" rel="noreferrer">Repo/Docs</a>
+          </div>
+        </li>
+
+        <li>
+          <strong style="color:var(--text)">Projekt (TODO)</strong><br/>
+          <span class="muted">Eget eller kursprojekt (översikt utan exam-lösningar).</span>
+          <div class="row" style="margin-top:6px">
+            <a class="btn" href="#" target="_blank" rel="noreferrer">Översikt</a>
+          </div>
+        </li>
+      </ul>
     </section>
 
-    <!-- Experience -->
-    <section id="experience">
-      <div class="section-head">
-        <h2>Erfarenhet</h2>
-        <p>Konkreta resultat + miljöer jag arbetat i.</p>
-      </div>
-
-      <div class="timeline">
-        <div class="job">
-          <div class="job-top">
-            <strong>Sellpy — Operations Associate (Seasonal)</strong>
-            <span>Jun 2024 – Jul 2024 · Rosersberg (On-site)</span>
-          </div>
-          <p>
-            Outbound på Sellpy Site-J. Fokus på warehouse operations och teamwork i högt tempo (kvalitet, flöde, samarbete).
-            <!-- TODO: add one measurable detail if you can (without violating policy), e.g. process improvement / throughput -->
-          </p>
-        </div>
-
-        <div class="job">
-          <div class="job-top">
-            <strong>HP-appen — UI/UX Design Intern</strong>
-            <span>Mar 2023 – Sep 2023 · Stockholm</span>
-          </div>
-          <p>
-            UI/UX-praktik med Figma och user interface design. Lägg gärna in 2–3 konkreta saker du levererade
-            (t.ex. prototyper, design iterationer, user feedback, handoff till dev).
-          </p>
-        </div>
-      </div>
+    <section class="card" id="experience">
+      <h2>Erfarenhet</h2>
+      <ul>
+        <li>
+          <strong style="color:var(--text)">Sellpy — Operations Associate (Jun 2024–Jul 2024)</strong><br/>
+          <span class="muted">Outbound, Site-J. Warehouse operations och teamwork (on-site i Rosersberg).</span>
+        </li>
+        <li>
+          <strong style="color:var(--text)">HP-appen — UI/UX Design Intern (Mar 2023–Sep 2023)</strong><br/>
+          <span class="muted">UI/UX-design i Figma, iteration och handoff (Stockholm).</span>
+        </li>
+      </ul>
     </section>
 
-    <!-- Education -->
-    <section id="education">
-      <div class="section-head">
-        <h2>Utbildning</h2>
-        <p>Bakgrund och inriktning.</p>
-      </div>
-
-      <div class="grid">
-        <div class="tile col-6">
-          <div class="meta"><span>KTH Royal Institute of Technology</span><span>2024 – 2029</span></div>
-          <h3>M.Sc. in Information Technology</h3>
-          <p>
-            Student vid KTH. (TODO: Lägg in 2–3 relevanta kurser/teman om du vill, men undvik att publicera exam-lösningar.)
-          </p>
-        </div>
-
-        <div class="tile col-6">
-          <div class="meta"><span>Stockholm Science & Innovation School</span><span>2021 – 2024</span></div>
-          <h3>Gymnasieutbildning</h3>
-          <p>
-            (Valfritt) Beskriv kort vad du tog med dig: teknikintresse, projektvana, hackathons.
-          </p>
-        </div>
-      </div>
+    <section class="card" id="education">
+      <h2>Utbildning</h2>
+      <ul>
+        <li>
+          <strong style="color:var(--text)">KTH Royal Institute of Technology</strong><br/>
+          <span class="muted">M.Sc. in Information Technology (2024–2029)</span>
+        </li>
+        <li>
+          <strong style="color:var(--text)">Stockholm Science & Innovation School</strong><br/>
+          <span class="muted">2021–2024</span>
+        </li>
+      </ul>
     </section>
 
-    <!-- Skills -->
-    <section id="skills">
-      <div class="section-head">
-        <h2>Färdigheter</h2>
-        <p>Utdrag från LinkedIn + fokus på relevans.</p>
-      </div>
+    <section class="card" id="contact">
+      <h2>Kontakt</h2>
+      <p>
+        E-post: <span id="emailText" style="font-family:var(--mono); color:var(--text)">your.email@example.com</span><br/>
+        Plats: <span class="muted">Stockholm, Sverige</span>
+      </p>
 
-      <div class="grid">
-        <div class="tile col-4">
-          <div class="meta"><span>UI/UX</span><span>Starkt</span></div>
-          <h3>Figma & Interface Design</h3>
-          <p>Wireframes, prototyper, komponenttänk, handoff, iteration.</p>
-        </div>
+      <form class="row" id="contactForm" style="margin-top:6px">
+        <input id="fromEmail" type="email" placeholder="Din e-post" style="flex:1; min-width:220px" />
+        <input id="msg" type="text" placeholder="Kort meddelande" style="flex:2; min-width:220px" />
+        <button class="btn" type="submit">Skicka</button>
+      </form>
 
-        <div class="tile col-4">
-          <div class="meta"><span>Arbete</span><span>Praktiskt</span></div>
-          <h3>Operations & Teamwork</h3>
-          <p>Warehouse operations, samarbete, tempo, noggrannhet.</p>
-        </div>
-
-        <div class="tile col-4">
-          <div class="meta"><span>Studier</span><span>KTH</span></div>
-          <h3>IT-grund</h3>
-          <p>Grund i informations­teknik. (TODO: specificera gärna tekniker du vill lyfta.)</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact">
-      <div class="section-head">
-        <h2>Kontakt</h2>
-        <p>Enkelt att nå mig (krav i uppgiften).</p>
-      </div>
-
-      <div class="card contact">
-        <div class="mini">
-          <h3>Kontakta mig</h3>
-          <p class="note">
-            E-post: <span style="font-family:var(--mono)" id="emailLabel">your.email@example.com</span><br/>
-            Plats: Stockholm, Sverige
-          </p>
-          <div class="links" style="margin-top:12px;">
-            <!-- TODO: replace with real links -->
-            <a class="link" href="#" target="_blank" rel="noreferrer">LinkedIn ↗</a>
-            <a class="link" href="#" target="_blank" rel="noreferrer">GitHub ↗</a>
-            <a class="link" href="#portfolio">Projekt →</a>
-          </div>
-          <p class="note" style="margin-top:12px;">
-            Den här sidan är publik och kräver ingen inloggning (enligt kursinstruktionerna).
-          </p>
-        </div>
-
-        <form class="mini" id="contactForm">
-          <div>
-            <label for="name">Namn</label>
-            <input id="name" name="name" placeholder="Ditt namn" autocomplete="name" />
-          </div>
-
-          <div>
-            <label for="fromEmail">Din e-post</label>
-            <input id="fromEmail" name="fromEmail" type="email" placeholder="namn@email.com" autocomplete="email" />
-          </div>
-
-          <div style="grid-column: span 2;">
-            <label for="message">Meddelande</label>
-            <textarea id="message" name="message" placeholder="Vad vill du diskutera?"></textarea>
-          </div>
-
-          <button class="btn primary" type="submit">Skicka e-post</button>
-          <p class="note">Öppnar din e-postklient med ett förifyllt meddelande.</p>
-        </form>
-      </div>
+      <p class="muted" style="font-size:12px; margin-top:8px">Formuläret öppnar din e-postklient (mailto). Ingen backend.</p>
     </section>
 
     <footer>
-      <div>© <span id="year"></span> Simon Lindh Wågström</div>
-      <div class="pill">E-portfolio · Publik · HTML/CSS</div>
+      © <span id="year"></span> Simon Lindh Wågström · Publik e-portfolio
     </footer>
   </main>
 
@@ -588,50 +187,40 @@
     // ---- EDIT THESE ----
     const EMAIL = "your.email@example.com"; // TODO: set your real email (public)
     const LINKEDIN = "#";                   // TODO: set your LinkedIn URL
-    const GITHUB = "#";                     // TODO: set your GitHub URL (or remove button)
+    const GITHUB = "#";                     // TODO: set your GitHub URL (or remove)
 
-    // Year
     document.getElementById("year").textContent = new Date().getFullYear();
-
-    // Set email text in multiple places
     document.getElementById("emailText").textContent = EMAIL;
-    document.getElementById("emailLabel").textContent = EMAIL;
 
-    // Wire up top buttons + contact links
-    const links = document.querySelectorAll('a[href="#"][target="_blank"]');
-    links.forEach(a => {
-      if (a.textContent.toLowerCase().includes("linkedin")) a.href = LINKEDIN;
-      if (a.textContent.toLowerCase().includes("github")) a.href = GITHUB;
+    // Set top links
+    const btns = [...document.querySelectorAll("a.btn[target='_blank']")];
+    btns.forEach(a => {
+      const t = a.textContent.toLowerCase();
+      if (t.includes("linkedin")) a.href = LINKEDIN;
+      if (t.includes("github")) a.href = GITHUB;
     });
 
     // Copy email
-    const copyBtn = document.getElementById("copyEmailBtn");
-    copyBtn.addEventListener("click", async () => {
-      try{
+    document.getElementById("copyEmailBtn").addEventListener("click", async () => {
+      try {
         await navigator.clipboard.writeText(EMAIL);
-        copyBtn.textContent = "Kopierat!";
-        setTimeout(()=> copyBtn.textContent = "Kopiera e-post", 1200);
-      }catch{
+        const b = document.getElementById("copyEmailBtn");
+        b.textContent = "Kopierat!";
+        setTimeout(() => (b.textContent = "Kopiera e-post"), 1200);
+      } catch {
         window.prompt("Kopiera e-post:", EMAIL);
       }
     });
 
-    // mailto contact form (no backend)
+    // Mailto form
     document.getElementById("contactForm").addEventListener("submit", (e) => {
       e.preventDefault();
-      const name = document.getElementById("name").value.trim();
-      const fromEmail = document.getElementById("fromEmail").value.trim();
-      const message = document.getElementById("message").value.trim();
-
-      const subject = encodeURIComponent(`Kontakt via e-portfolio${name ? " — " + name : ""}`);
+      const from = document.getElementById("fromEmail").value.trim();
+      const msg = document.getElementById("msg").value.trim();
+      const subject = encodeURIComponent("Kontakt via e-portfolio");
       const body = encodeURIComponent(
-        `Hej Simon,\n\n` +
-        `${message || "[Skriv ditt meddelande här]"}\n\n` +
-        `—\n` +
-        `${name || "[Ditt namn]"}\n` +
-        `${fromEmail || "[Din e-post]"}`
+        `Hej Simon,\n\n${msg || "[Skriv ditt meddelande här]"}\n\n—\n${from || "[Din e-post]"}`
       );
-
       window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
     });
   </script>
