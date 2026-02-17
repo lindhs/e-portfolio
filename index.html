@@ -7,10 +7,10 @@
   <meta name="description" content="E-portfolio för Simon Lindh Wågström. Projekt, erfarenhet och kontakt." />
   <style>
     :root{
-      --bg:#0f1220; --card:#171a2b; --text:#eef0ff; --muted:#b7bdd8; --border:#2a2f4a; --accent:#7c5cff;
+      --bg:#0f1220; --card:#171a2b; --text:#eef0ff; --muted:#b7bdd8; --border:#2a2f4a;
       --max: 900px; --r: 12px;
       --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace;
     }
     *{box-sizing:border-box}
     body{margin:0; font-family:var(--sans); background:var(--bg); color:var(--text); line-height:1.45}
@@ -51,6 +51,7 @@
     li{margin:6px 0}
     .muted{color:var(--muted)}
     footer{margin-top:12px; color:var(--muted); font-size:12px}
+    .email{font-family:var(--mono); color:var(--text)}
     @media (max-width: 720px){ nav{display:none} }
   </style>
 </head>
@@ -66,7 +67,6 @@
         <a href="#projects">Projekt</a>
         <a href="#experience">Erfarenhet</a>
         <a href="#education">Utbildning</a>
-        <a href="#contact">Kontakt</a>
       </nav>
     </div>
   </header>
@@ -75,22 +75,32 @@
     <section class="card" id="top">
       <h1>E-portfolio</h1>
       <p>
-        Jag är student på KTH, och håller på med min kandidat inom IT, som del av min civilingenjörsutbildning. På denna sida kan du läsa mer om mina tidigare projekt, erferenheter och dylikt. Från denna sida kan du även se mina andra kanalaer som LinkedIn.
+        Jag är student på KTH och läser civilingenjör inom Informationsteknik. På denna sida visas konkreta projekt,
+        erfarenheter och hur man kan kontakta mig.
       </p>
 
+      <!-- Skills / Tags -->
       <div class="row" style="margin-top:6px">
         <span class="pill">UI/UX</span>
         <span class="pill">Figma</span>
         <span class="pill">Java</span>
+        <span class="pill">Python</span>
+        <span class="pill">C</span>
         <span class="pill">Assembly</span>
+        <span class="pill">SQL</span>
+        <span class="pill">GitHub</span>
       </div>
 
       <div class="row" style="margin-top:10px">
-        <!-- TODO: set your real links -->
         <a class="btn" href="https://www.linkedin.com/in/wagstrom/" target="_blank" rel="noreferrer">LinkedIn</a>
         <a class="btn" href="https://github.com/lindhs" target="_blank" rel="noreferrer">GitHub</a>
         <button class="btn" id="copyEmailBtn" type="button">Kopiera e-post</button>
       </div>
+
+      <!-- Visible email (important for the assignment) -->
+      <p style="margin-top:8px;">
+        E-post: <span id="emailText" class="email">simonwagstrom@gmail.com</span>
+      </p>
     </section>
 
     <section class="card" id="projects">
@@ -99,7 +109,8 @@
         <li>
           <strong style="color:var(--text)">Snake (KTH IS1200 mini-projekt) — Java + Assembly</strong><br/>
           <span class="muted">
-            Ett Snake-spel byggt med Java och delar i assembly. Visar låg-nivåförståelse, struktur och felsökning.
+            Ett Snake-spel implementerat i Java och assembly. Projektet visar förståelse för låg-nivåprogrammering,
+            struktur, debugging och samspel mellan olika nivåer av kod.
           </span>
           <div class="row" style="margin-top:6px">
             <a class="btn" href="https://github.com/lindhs/IS1200-mp" target="_blank" rel="noreferrer">GitHub repo ↗</a>
@@ -109,14 +120,16 @@
         <li>
           <strong style="color:var(--text)">HP-appen — UI/UX praktik (Mar 2023–Sep 2023)</strong><br/>
           <span class="muted">
-            UI/UX-praktik med Figma. Arbetade tillsamsn med mitt team för att ta fram en ny design till framsidan av applikationen. UI/UX-Design, Figma, Användar-research.
+            UI/UX-praktik där jag arbetade i Figma tillsammans med ett team för att ta fram ny design för applikationens
+            startsida, inklusive UI-design, användarresearch och iterationer.
           </span>
         </li>
 
         <li>
           <strong style="color:var(--text)">ResQ — #HackYourWorld 2023 (Vinnare “Bästa Tekniska Lösning”)</strong><br/>
           <span class="muted">
-            Vinnare av “Bästa Tekniska Lösning”. Hackathon av Ericssson, Space Academy & IBM. Här fick vi utveckla enklare prototyp, och pitcha vår ide inför en jury samt andra tävlande.
+            Hackathon arrangerat av Ericsson, IBM och Space Academy där vi utvecklade en prototyp och pitchade vår idé
+            inför jury och andra deltagare. Vann pris för bästa tekniska lösning.
           </span>
         </li>
       </ul>
@@ -127,11 +140,11 @@
       <ul>
         <li>
           <strong style="color:var(--text)">Sellpy — Operations Associate (Jun 2024–Jul 2024)</strong><br/>
-          <span class="muted">Outbound, Site-J. Warehouse operations och teamwork (on-site i Rosersberg).</span>
+          <span class="muted">Outbound, Site-J. Warehouse operations och teamwork i högt tempo (Rosersberg).</span>
         </li>
         <li>
           <strong style="color:var(--text)">HP-appen — UI/UX Design Intern (Mar 2023–Sep 2023)</strong><br/>
-          <span class="muted">UI/UX-design i Figma, iteration och handoff (Stockholm).</span>
+          <span class="muted">UI/UX-design i Figma, iterationer och samarbete i team (Stockholm).</span>
         </li>
       </ul>
     </section>
@@ -156,40 +169,25 @@
   </main>
 
   <script>
-    // ---- EDIT THESE ----
-    const EMAIL = "simonwagstrom@gmail.com"; // TODO: set your real email (public)
-    const LINKEDIN = "https://www.linkedin.com/in/wagstrom/";// TODO: set your LinkedIn URL
+    const EMAIL = "simonwagstrom@gmail.com";
 
     document.getElementById("year").textContent = new Date().getFullYear();
     document.getElementById("emailText").textContent = EMAIL;
 
-    // Set LinkedIn button
-    const linkedInBtn = [...document.querySelectorAll("a.btn[target='_blank']")]
-      .find(a => a.textContent.toLowerCase().includes("linkedin"));
-    if (linkedInBtn) linkedInBtn.href = LINKEDIN;
-
-    // Copy email
+    // Fixed copy email button
     document.getElementById("copyEmailBtn").addEventListener("click", async () => {
       try {
         await navigator.clipboard.writeText(EMAIL);
-        const b = document.getElementById("copyEmailBtn");
-        b.textContent = "Kopierat!";
-        setTimeout(() => (b.textContent = "Kopiera e-post"), 1200);
+        const btn = document.getElementById("copyEmailBtn");
+        const original = btn.textContent;
+        btn.textContent = "Kopierat!";
+        setTimeout(() => {
+          btn.textContent = original;
+        }, 1500);
       } catch {
-        window.prompt("Kopiera e-post:", EMAIL);
+        // Fallback for older browsers
+        prompt("Kopiera e-post:", EMAIL);
       }
-    });
-
-    // Mailto form
-    document.getElementById("contactForm").addEventListener("submit", (e) => {
-      e.preventDefault();
-      const from = document.getElementById("fromEmail").value.trim();
-      const msg = document.getElementById("msg").value.trim();
-      const subject = encodeURIComponent("Kontakt via e-portfolio");
-      const body = encodeURIComponent(
-        `Hej Simon,\n\n${msg || "[Skriv ditt meddelande här]"}\n\n—\n${from || "[Din e-post]"}`
-      );
-      window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
     });
   </script>
 </body>
