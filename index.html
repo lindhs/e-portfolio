@@ -8,8 +8,7 @@
   <style>
     :root{
       --bg:#0f1220; --card:#171a2b; --text:#eef0ff; --muted:#b7bdd8; --border:#2a2f4a; --accent:#7c5cff;
-      --max: 900px;
-      --r: 12px;
+      --max: 900px; --r: 12px;
       --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
     }
@@ -52,9 +51,7 @@
     li{margin:6px 0}
     .muted{color:var(--muted)}
     footer{margin-top:12px; color:var(--muted); font-size:12px}
-    @media (max-width: 720px){
-      nav{display:none}
-    }
+    @media (max-width: 720px){ nav{display:none} }
   </style>
 </head>
 
@@ -85,51 +82,47 @@
       <div class="row" style="margin-top:6px">
         <span class="pill">UI/UX</span>
         <span class="pill">Figma</span>
-        <span class="pill">Teamwork</span>
-        <span class="pill">Web</span>
+        <span class="pill">Java</span>
+        <span class="pill">Assembly</span>
       </div>
 
       <div class="row" style="margin-top:10px">
         <!-- TODO: set your real links -->
         <a class="btn" href="#" target="_blank" rel="noreferrer">LinkedIn</a>
-        <a class="btn" href="#" target="_blank" rel="noreferrer">GitHub</a>
+        <a class="btn" href="https://github.com/lindhs" target="_blank" rel="noreferrer">GitHub</a>
         <button class="btn" id="copyEmailBtn" type="button">Kopiera e-post</button>
       </div>
 
       <p class="muted" style="margin-top:8px; font-size:12px">
-        Obs: Jag publicerar inte lösningar till examinationsmoment i andra kurser.
+        Obs: Jag publicerar inte lösningar till examinationsmoment i andra kurser. Jag länkar bara till material jag kan stå för.
       </p>
     </section>
 
     <section class="card" id="projects">
-      <h2>Projekt & case</h2>
+      <h2>Projekt & exempel</h2>
       <ul>
         <li>
-          <strong style="color:var(--text)">HP-appen — UI/UX praktik (Mar 2023–Sep 2023)</strong><br/>
-          <span class="muted">Urval av prototyper/iterationer (Figma) + kort casebeskrivning.</span>
-          <!-- TODO: add links -->
+          <strong style="color:var(--text)">Snake (KTH IS1200 mini-projekt) — Java + Assembly</strong><br/>
+          <span class="muted">
+            Ett Snake-spel byggt med Java och delar i assembly. Visar låg-nivåförståelse, struktur och felsökning.
+          </span>
           <div class="row" style="margin-top:6px">
-            <a class="btn" href="#" target="_blank" rel="noreferrer">Case</a>
-            <a class="btn" href="#" target="_blank" rel="noreferrer">Figma</a>
+            <a class="btn" href="https://github.com/lindhs/IS1200-mp" target="_blank" rel="noreferrer">GitHub repo ↗</a>
           </div>
+        </li>
+
+        <li>
+          <strong style="color:var(--text)">HP-appen — UI/UX praktik (Mar 2023–Sep 2023)</strong><br/>
+          <span class="muted">
+            UI/UX-praktik med Figma. (Här kan du senare lägga en kort beskrivning av 1–2 saker du levererade, utan att dela känsligt material.)
+          </span>
         </li>
 
         <li>
           <strong style="color:var(--text)">ResQ — #HackYourWorld 2023 (Vinnare “Bästa Tekniska Lösning”)</strong><br/>
-          <span class="muted">Problem → lösning → min del → demo/material.</span>
-          <!-- TODO: add links -->
-          <div class="row" style="margin-top:6px">
-            <a class="btn" href="#" target="_blank" rel="noreferrer">Demo/Slides</a>
-            <a class="btn" href="#" target="_blank" rel="noreferrer">Repo/Docs</a>
-          </div>
-        </li>
-
-        <li>
-          <strong style="color:var(--text)">Projekt (TODO)</strong><br/>
-          <span class="muted">Eget eller kursprojekt (översikt utan exam-lösningar).</span>
-          <div class="row" style="margin-top:6px">
-            <a class="btn" href="#" target="_blank" rel="noreferrer">Översikt</a>
-          </div>
+          <span class="muted">
+            Vinnare av “Bästa Tekniska Lösning”. (Lägg gärna till en kort beskrivning av problemet och din contribution.)
+          </span>
         </li>
       </ul>
     </section>
@@ -187,18 +180,14 @@
     // ---- EDIT THESE ----
     const EMAIL = "your.email@example.com"; // TODO: set your real email (public)
     const LINKEDIN = "#";                   // TODO: set your LinkedIn URL
-    const GITHUB = "#";                     // TODO: set your GitHub URL (or remove)
 
     document.getElementById("year").textContent = new Date().getFullYear();
     document.getElementById("emailText").textContent = EMAIL;
 
-    // Set top links
-    const btns = [...document.querySelectorAll("a.btn[target='_blank']")];
-    btns.forEach(a => {
-      const t = a.textContent.toLowerCase();
-      if (t.includes("linkedin")) a.href = LINKEDIN;
-      if (t.includes("github")) a.href = GITHUB;
-    });
+    // Set LinkedIn button
+    const linkedInBtn = [...document.querySelectorAll("a.btn[target='_blank']")]
+      .find(a => a.textContent.toLowerCase().includes("linkedin"));
+    if (linkedInBtn) linkedInBtn.href = LINKEDIN;
 
     // Copy email
     document.getElementById("copyEmailBtn").addEventListener("click", async () => {
