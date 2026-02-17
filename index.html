@@ -1,60 +1,639 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="sv">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio of John Doe</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="E-portfolio för Simon Lindh Wågström – student vid KTH. Projekt, case och erfarenheter." />
+  <title>Simon Lindh Wågström — E-portfolio</title>
+
+  <style>
+    :root{
+      --bg:#0b1220;
+      --panel:rgba(255,255,255,0.06);
+      --panel2:rgba(255,255,255,0.09);
+      --text:rgba(255,255,255,0.92);
+      --muted:rgba(255,255,255,0.68);
+      --border:rgba(255,255,255,0.12);
+      --accent:#7c5cff;
+      --accent2:#2de2e6;
+      --shadow:0 14px 40px rgba(0,0,0,0.35);
+      --r:16px;
+      --rl:22px;
+      --max:1100px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; font-family:var(--sans); color:var(--text); line-height:1.55;
+      background:
+        radial-gradient(900px 450px at 18% 10%, rgba(124,92,255,0.35), transparent 60%),
+        radial-gradient(700px 420px at 90% 18%, rgba(45,226,230,0.25), transparent 55%),
+        radial-gradient(900px 520px at 60% 92%, rgba(124,92,255,0.18), transparent 60%),
+        var(--bg);
+    }
+    a{color:inherit; text-decoration:none}
+    a:hover{opacity:.92}
+    .wrap{max-width:var(--max); margin:0 auto; padding:26px 18px 64px}
+
+    header{
+      position:sticky; top:0; z-index:20;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(to bottom, rgba(11,18,32,0.78), rgba(11,18,32,0.35));
+      border-bottom:1px solid rgba(255,255,255,0.07);
+    }
+    .nav{
+      max-width:var(--max); margin:0 auto; padding:12px 18px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+    }
+    .brand{display:flex; align-items:center; gap:10px; min-width: 220px;}
+    .logo{
+      width:36px; height:36px; border-radius:12px;
+      background: conic-gradient(from 210deg, var(--accent), var(--accent2), var(--accent));
+      box-shadow: 0 10px 22px rgba(124,92,255,0.25);
+      position:relative; overflow:hidden;
+    }
+    .logo::after{
+      content:""; position:absolute; inset:-40%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.45), transparent 55%);
+      transform: rotate(18deg);
+    }
+    .brand strong{font-weight:750; letter-spacing:.2px; display:block}
+    .brand span{color:var(--muted); font-size:13px; display:block; margin-top:-2px}
+
+    .navlinks{display:flex; gap:16px; flex-wrap:wrap; justify-content:flex-end; align-items:center;}
+    .navlinks a{
+      padding:8px 10px; border-radius:12px; color:var(--muted);
+      border:1px solid transparent; font-size:14px;
+    }
+    .navlinks a:hover{
+      color:var(--text);
+      border-color:rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .btn{
+      padding:10px 12px; border-radius:14px; border:1px solid rgba(255,255,255,0.13);
+      background: rgba(255,255,255,0.06); box-shadow: 0 10px 24px rgba(0,0,0,0.15);
+      color:var(--text); font-size:14px; cursor:pointer; display:inline-flex; align-items:center; gap:8px;
+    }
+    .btn:hover{background:rgba(255,255,255,0.09)}
+    .btn.primary{
+      border-color: rgba(124,92,255,0.55);
+      background: linear-gradient(135deg, rgba(124,92,255,0.95), rgba(45,226,230,0.70));
+      box-shadow: 0 18px 40px rgba(124,92,255,0.22);
+    }
+    .btn.primary:hover{filter:brightness(1.03)}
+    .cta{display:flex; gap:10px; align-items:center}
+
+    .card{
+      border-radius:var(--rl);
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
+      border:1px solid rgba(255,255,255,0.12);
+      box-shadow:var(--shadow);
+    }
+
+    .hero{
+      padding:38px 0 16px;
+      display:grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap:16px;
+      align-items:start;
+    }
+    .hero-main{padding:22px}
+    .kicker{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:6px 10px; border-radius:999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: var(--muted);
+      font-family: var(--mono); font-size: 12px;
+    }
+    h1{margin:12px 0 8px; font-size: clamp(28px, 4vw, 44px); line-height:1.1; letter-spacing:-0.6px;}
+    .subtitle{margin:0 0 14px; color:var(--muted); font-size:16px; max-width:70ch;}
+    .hero-actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px;}
+    .note{color:var(--muted); font-size:12px; margin:0;}
+
+    .hero-side{padding:18px; display:flex; flex-direction:column; gap:12px;}
+    .side-row{display:flex; gap:14px; align-items:center;}
+    .avatar{
+      width:82px; height:82px; border-radius:22px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35), transparent 55%),
+        linear-gradient(135deg, rgba(124,92,255,0.9), rgba(45,226,230,0.65));
+      border:1px solid rgba(255,255,255,0.18);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.25);
+      flex: 0 0 auto;
+    }
+    .side-row strong{display:block}
+    .side-row small{color:var(--muted); display:block; margin-top:2px}
+
+    .mini{
+      padding:12px; border-radius:var(--r);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+    .mini h3{margin:0 0 8px; font-size:14px; letter-spacing:0.2px;}
+    .tags{display:flex; flex-wrap:wrap; gap:8px;}
+    .tag{
+      font-family:var(--mono); font-size:12px; color: rgba(255,255,255,0.78);
+      padding:6px 9px; border-radius:999px;
+      background: rgba(0,0,0,0.18);
+      border:1px solid rgba(255,255,255,0.10);
+    }
+
+    section{margin-top:18px; scroll-margin-top:90px;}
+    .section-head{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:12px;
+      margin:18px 0 10px;
+    }
+    .section-head h2{margin:0; font-size:18px; letter-spacing:0.2px;}
+    .section-head p{margin:0; color:var(--muted); font-size:14px;}
+
+    .grid{display:grid; grid-template-columns: repeat(12, 1fr); gap:14px;}
+    .col-12{grid-column: span 12;}
+    .col-8{grid-column: span 8;}
+    .col-6{grid-column: span 6;}
+    .col-4{grid-column: span 4;}
+
+    .tile{
+      padding:16px; border-radius:var(--rl);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.10);
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+      position:relative; overflow:hidden;
+    }
+    .tile:hover{
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,255,255,0.14);
+    }
+    .meta{
+      display:flex; justify-content:space-between; gap:10px; align-items:center;
+      color:var(--muted); font-size:12px; font-family:var(--mono);
+    }
+    .tile h3{margin:10px 0 8px; font-size:16px;}
+    .tile p{margin:0; color:var(--muted); font-size:14px;}
+    .links{margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;}
+    .link{
+      padding:8px 10px; border-radius:12px;
+      border:1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      font-size:13px; display:inline-flex; gap:8px; align-items:center;
+    }
+    .link:hover{background: rgba(255,255,255,0.07);}
+
+    .timeline{display:flex; flex-direction:column; gap:12px;}
+    .job{
+      padding:14px 16px; border-radius:var(--rl);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+    .job-top{display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; align-items:baseline;}
+    .job-top strong{font-size:14px;}
+    .job-top span{color:var(--muted); font-size:12px; font-family:var(--mono);}
+    .job p{margin:8px 0 0; color:var(--muted); font-size:14px;}
+
+    .callout{
+      padding:14px 16px; border-radius:var(--rl);
+      background: linear-gradient(135deg, rgba(124,92,255,0.16), rgba(45,226,230,0.10));
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .callout strong{display:block; margin-bottom:6px}
+    .callout p{margin:0; color:var(--muted); font-size:14px;}
+
+    .contact{
+      padding:18px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+      align-items:start;
+    }
+    label{font-size:12px; color:var(--muted);}
+    input, textarea{
+      width:100%; padding:12px 12px; border-radius:14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(0,0,0,0.18);
+      color: var(--text); outline:none; font-size:14px;
+    }
+    textarea{min-height:110px; resize:vertical; grid-column: span 2;}
+    input:focus, textarea:focus{
+      border-color: rgba(124,92,255,0.55);
+      box-shadow: 0 0 0 4px rgba(124,92,255,0.15);
+    }
+
+    footer{
+      margin-top:22px; padding:18px 0 0; color:var(--muted); font-size:13px;
+      display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .pill{
+      font-family:var(--mono); font-size:12px;
+      padding:6px 10px; border-radius:999px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.04);
+    }
+
+    @media (max-width: 920px){
+      .hero{grid-template-columns: 1fr;}
+      .contact{grid-template-columns: 1fr;}
+      textarea{grid-column: span 1;}
+      .col-6,.col-4,.col-8{grid-column: span 12;}
+      .navlinks{display:none;}
+    }
+    @media (prefers-reduced-motion: reduce){
+      html{scroll-behavior:auto}
+      .tile{transition:none}
+    }
+  </style>
 </head>
+
 <body>
-    <header>
-        <h1 style="text-align:center;">John Doe</h1>
-        <p style="text-align:center;">Home | Projects | Blogs | Contact</p>
-    </header>
-    <h2 style="text-align:center;">Web Developer and Designer</h2>
-    <table border="1" width="100%">
-        <tr>
-            <td>
-                <h3>Portfolio Highlights</h3>
-                <ul>
-                    <li>Responsive HTML Layout</li>
-                    <li>E-commerce Storefront</li>
-                    <li>Interactive Form Design</li>
-                    <li>Event Countdown Widget</li>
-                    <li>Prototype Landing Pages</li>
-                </ul>
-            </td>
-            <td>
-                <h3>Career Achievements</h3>
-                <p>Frontend Developer [Intern] at XYZ<br>Headed major product redesigns resulting in a 40% increase in user engagement.<br><a href="#">View My LinkedIn Profile</a></p>
-                <h3>Community Involvement</h3>
-                <p>Active participant in local and online developer forums. Regularly contribute to web development blogs and GitHub projects.<br><a href="#">Visit My GitHub</a></p>
-            </td>
-            <td>
-                <h3>Academic Qualifications</h3>
-                <p>B.Tech (Computer Science) from ABC University</p>
-                <p>Specializations:</p>
-                <ul>
-                    <li>Systems Analysis</li>
-                    <li>Advanced JavaScript Techniques</li>
-                    <li>Web Accessibility Standards</li>
-                    <li>Performance Optimization in Web Applications</li>
-                    <li>Cloud Computing Infrastructure</li>
-                    <li>Security in Web Applications</li>
-                    <li>Advanced Algorithms</li>
-                </ul>
-            </td>
-        </tr>
-    </table>
-    <h3>Peer Reviews</h3>
-    <table border="1" width="100%">
-        <tr>
-            <td>John Doe consistently delivers high-quality, innovative solutions that exceed project expectations. - Steven, Project Lead</td>
-            <td>John Doe is known for his precise attention to detail and his ability to mentor younger developers. - David, UI Designer</td>
-            <td>John's approach to problem-solving has been instrumental in our success. - Sarah, Frontend Developer</td>
-        </tr>
-    </table>
-    <footer style="text-align:center;">
-        © [2025] All rights reserved by John Doe
+  <header>
+    <div class="nav">
+      <a class="brand" href="#top" aria-label="Gå till toppen">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <strong>Simon Lindh Wågström</strong>
+          <span>Student, M.Sc. Information Technology (KTH) · Stockholm</span>
+        </div>
+      </a>
+
+      <nav class="navlinks" aria-label="Navigering">
+        <a href="#portfolio">Projekt</a>
+        <a href="#award">Utmärkelse</a>
+        <a href="#experience">Erfarenhet</a>
+        <a href="#education">Utbildning</a>
+        <a href="#contact">Kontakt</a>
+      </nav>
+
+      <div class="cta">
+        <!-- TODO: replace # with your actual LinkedIn/GitHub URLs -->
+        <a class="btn" href="#" target="_blank" rel="noreferrer">LinkedIn</a>
+        <a class="btn" href="#" target="_blank" rel="noreferrer">GitHub</a>
+        <a class="btn primary" href="#contact">Kontakta</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top" class="wrap">
+    <div class="hero">
+      <div class="card hero-main">
+        <div class="kicker">E-portfolio (publik) · konkreta exempel · uppdateras löpande</div>
+        <h1>UI/UX + IT — jag bygger tydliga gränssnitt och praktiska lösningar.</h1>
+        <p class="subtitle">
+          Jag är student vid KTH (M.Sc. Information Technology, 2024–2029) med erfarenhet av UI/UX-design (praktik på
+          HP-appen) och operativt teamarbete (Sellpy). Här samlar jag projekt, case och resultat som visar vad jag faktiskt kan göra.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn primary" href="#portfolio">Se projekt</a>
+          <!-- TODO: add a public PDF and set href to it -->
+          <a class="btn" href="#" download>Ladda ner CV (PDF)</a>
+          <button class="btn" id="copyEmailBtn" type="button">Kopiera e-post</button>
+        </div>
+
+        <div style="margin-top:14px" class="callout">
+          <strong>Viktigt (integritet & kursregler)</strong>
+          <p>
+            Jag publicerar inte lösningar till examinationsmoment i andra kurser. Projekt här är antingen egna arbeten,
+            öppna casebeskrivningar eller material jag har rätt att dela.
+          </p>
+        </div>
+      </div>
+
+      <aside class="card hero-side">
+        <div class="side-row">
+          <div class="avatar" aria-hidden="true"></div>
+          <div>
+            <strong>Kontakt</strong>
+            <!-- TODO: replace with real contact details you want public -->
+            <small><span id="emailText">your.email@example.com</span></small>
+            <small>Stockholm, Sverige</small>
+          </div>
+        </div>
+
+        <div class="mini">
+          <h3>Fokusområden</h3>
+          <div class="tags">
+            <span class="tag">UI/UX</span>
+            <span class="tag">Figma</span>
+            <span class="tag">Prototyping</span>
+            <span class="tag">Web</span>
+            <span class="tag">Teamwork</span>
+          </div>
+        </div>
+
+        <div class="mini">
+          <h3>Snabbprofil</h3>
+          <p class="note">
+            Student vid KTH. Intresserad av att kombinera design, användbarhet och teknik för att skapa lösningar som fungerar i praktiken.
+          </p>
+        </div>
+
+        <div class="mini">
+          <h3>Öppen för</h3>
+          <div class="tags">
+            <span class="tag">Sommarjobb</span>
+            <span class="tag">Praktik</span>
+            <span class="tag">Deltid</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Projects / Portfolio -->
+    <section id="portfolio">
+      <div class="section-head">
+        <h2>Projekt & case (konkreta exempel)</h2>
+        <p>Det här är kärnan i E-portfolion: vad jag byggt, designat eller levererat.</p>
+      </div>
+
+      <div class="grid">
+        <!-- TODO: Replace with your best project(s). Add screenshots or short gifs if you have rights to share. -->
+        <article class="tile col-6">
+          <div class="meta">
+            <span>Case study · UI/UX</span>
+            <span>Figma</span>
+          </div>
+          <h3>HP-appen — UI/UX praktik (urval)</h3>
+          <p>
+            Beskriv 1–2 konkreta leveranser: t.ex. prototyper, komponenter, användartester, förbättrad flow eller designbeslut.
+            Lägg gärna in anonymiserade skärmdumpar om du får.
+          </p>
+          <div class="links">
+            <a class="link" href="#" target="_blank" rel="noreferrer">Case (PDF/Notion) →</a>
+            <a class="link" href="#" target="_blank" rel="noreferrer">Figma (view) ↗</a>
+          </div>
+        </article>
+
+        <article class="tile col-6">
+          <div class="meta">
+            <span>Hackathon · 2023</span>
+            <span>“Best Technical Solution”</span>
+          </div>
+          <h3>ResQ — #HackYourWorld 2023 (Vinnare)</h3>
+          <p>
+            Vinnare “Bästa Tekniska Lösning”. Förklara problemet, idén, vad du byggde (din del),
+            och hur lösningen demonstrerades. Lägg till bilder/diagram som du äger.
+          </p>
+          <div class="links">
+            <a class="link" href="#" target="_blank" rel="noreferrer">Demo / slides →</a>
+            <a class="link" href="#" target="_blank" rel="noreferrer">Repo / docs ↗</a>
+          </div>
+        </article>
+
+        <article class="tile col-4">
+          <div class="meta">
+            <span>Projekt</span>
+            <span>KTH / eget</span>
+          </div>
+          <h3>Projekt (TODO): kurs- eller hobbyprojekt</h3>
+          <p>
+            Skriv en kort, begriplig beskrivning för en utomstående. Undvik att publicera exam-lösningar;
+            länka hellre till en översikt/rapport utan känsligt innehåll.
+          </p>
+          <div class="links">
+            <a class="link" href="#" target="_blank" rel="noreferrer">Översikt →</a>
+          </div>
+        </article>
+
+        <article class="tile col-4">
+          <div class="meta">
+            <span>Design</span>
+            <span>System / komponenter</span>
+          </div>
+          <h3>Mini design system (TODO)</h3>
+          <p>
+            Exempel på komponenter, spacing, typografi och tillgänglighet. Visa beslut och konsekvenser.
+          </p>
+          <div class="links">
+            <a class="link" href="#" target="_blank" rel="noreferrer">Preview ↗</a>
+          </div>
+        </article>
+
+        <article class="tile col-4">
+          <div class="meta">
+            <span>Certifiering</span>
+            <span>Feb 2026</span>
+          </div>
+          <h3>Lovable — Vibe Coding (L1: Bronze)</h3>
+          <p>
+            Kort reflektion: vad du lärde dig och hur du använder det i projekt (t.ex. prototyping/automation).
+          </p>
+          <div class="links">
+            <a class="link" href="#" target="_blank" rel="noreferrer">Intyg / badge ↗</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Award -->
+    <section id="award">
+      <div class="section-head">
+        <h2>Utmärkelse</h2>
+        <p>Bevis på prestation i relevant sammanhang.</p>
+      </div>
+
+      <div class="callout">
+        <strong>Vinnare: “Bästa Tekniska Lösning” — #HackYourWorld 2023 (ResQ)</strong>
+        <p>
+          Issued by IBM, Ericsson, Space Academy, Kista Science City (Feb 2023). Beskriv gärna kriterier och vad juryn uppskattade
+          (om det är offentligt), samt din specifika contribution.
+        </p>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience">
+      <div class="section-head">
+        <h2>Erfarenhet</h2>
+        <p>Konkreta resultat + miljöer jag arbetat i.</p>
+      </div>
+
+      <div class="timeline">
+        <div class="job">
+          <div class="job-top">
+            <strong>Sellpy — Operations Associate (Seasonal)</strong>
+            <span>Jun 2024 – Jul 2024 · Rosersberg (On-site)</span>
+          </div>
+          <p>
+            Outbound på Sellpy Site-J. Fokus på warehouse operations och teamwork i högt tempo (kvalitet, flöde, samarbete).
+            <!-- TODO: add one measurable detail if you can (without violating policy), e.g. process improvement / throughput -->
+          </p>
+        </div>
+
+        <div class="job">
+          <div class="job-top">
+            <strong>HP-appen — UI/UX Design Intern</strong>
+            <span>Mar 2023 – Sep 2023 · Stockholm</span>
+          </div>
+          <p>
+            UI/UX-praktik med Figma och user interface design. Lägg gärna in 2–3 konkreta saker du levererade
+            (t.ex. prototyper, design iterationer, user feedback, handoff till dev).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section id="education">
+      <div class="section-head">
+        <h2>Utbildning</h2>
+        <p>Bakgrund och inriktning.</p>
+      </div>
+
+      <div class="grid">
+        <div class="tile col-6">
+          <div class="meta"><span>KTH Royal Institute of Technology</span><span>2024 – 2029</span></div>
+          <h3>M.Sc. in Information Technology</h3>
+          <p>
+            Student vid KTH. (TODO: Lägg in 2–3 relevanta kurser/teman om du vill, men undvik att publicera exam-lösningar.)
+          </p>
+        </div>
+
+        <div class="tile col-6">
+          <div class="meta"><span>Stockholm Science & Innovation School</span><span>2021 – 2024</span></div>
+          <h3>Gymnasieutbildning</h3>
+          <p>
+            (Valfritt) Beskriv kort vad du tog med dig: teknikintresse, projektvana, hackathons.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+      <div class="section-head">
+        <h2>Färdigheter</h2>
+        <p>Utdrag från LinkedIn + fokus på relevans.</p>
+      </div>
+
+      <div class="grid">
+        <div class="tile col-4">
+          <div class="meta"><span>UI/UX</span><span>Starkt</span></div>
+          <h3>Figma & Interface Design</h3>
+          <p>Wireframes, prototyper, komponenttänk, handoff, iteration.</p>
+        </div>
+
+        <div class="tile col-4">
+          <div class="meta"><span>Arbete</span><span>Praktiskt</span></div>
+          <h3>Operations & Teamwork</h3>
+          <p>Warehouse operations, samarbete, tempo, noggrannhet.</p>
+        </div>
+
+        <div class="tile col-4">
+          <div class="meta"><span>Studier</span><span>KTH</span></div>
+          <h3>IT-grund</h3>
+          <p>Grund i informations­teknik. (TODO: specificera gärna tekniker du vill lyfta.)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <div class="section-head">
+        <h2>Kontakt</h2>
+        <p>Enkelt att nå mig (krav i uppgiften).</p>
+      </div>
+
+      <div class="card contact">
+        <div class="mini">
+          <h3>Kontakta mig</h3>
+          <p class="note">
+            E-post: <span style="font-family:var(--mono)" id="emailLabel">your.email@example.com</span><br/>
+            Plats: Stockholm, Sverige
+          </p>
+          <div class="links" style="margin-top:12px;">
+            <!-- TODO: replace with real links -->
+            <a class="link" href="#" target="_blank" rel="noreferrer">LinkedIn ↗</a>
+            <a class="link" href="#" target="_blank" rel="noreferrer">GitHub ↗</a>
+            <a class="link" href="#portfolio">Projekt →</a>
+          </div>
+          <p class="note" style="margin-top:12px;">
+            Den här sidan är publik och kräver ingen inloggning (enligt kursinstruktionerna).
+          </p>
+        </div>
+
+        <form class="mini" id="contactForm">
+          <div>
+            <label for="name">Namn</label>
+            <input id="name" name="name" placeholder="Ditt namn" autocomplete="name" />
+          </div>
+
+          <div>
+            <label for="fromEmail">Din e-post</label>
+            <input id="fromEmail" name="fromEmail" type="email" placeholder="namn@email.com" autocomplete="email" />
+          </div>
+
+          <div style="grid-column: span 2;">
+            <label for="message">Meddelande</label>
+            <textarea id="message" name="message" placeholder="Vad vill du diskutera?"></textarea>
+          </div>
+
+          <button class="btn primary" type="submit">Skicka e-post</button>
+          <p class="note">Öppnar din e-postklient med ett förifyllt meddelande.</p>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      <div>© <span id="year"></span> Simon Lindh Wågström</div>
+      <div class="pill">E-portfolio · Publik · HTML/CSS</div>
     </footer>
+  </main>
+
+  <script>
+    // ---- EDIT THESE ----
+    const EMAIL = "your.email@example.com"; // TODO: set your real email (public)
+    const LINKEDIN = "#";                   // TODO: set your LinkedIn URL
+    const GITHUB = "#";                     // TODO: set your GitHub URL (or remove button)
+
+    // Year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Set email text in multiple places
+    document.getElementById("emailText").textContent = EMAIL;
+    document.getElementById("emailLabel").textContent = EMAIL;
+
+    // Wire up top buttons + contact links
+    const links = document.querySelectorAll('a[href="#"][target="_blank"]');
+    links.forEach(a => {
+      if (a.textContent.toLowerCase().includes("linkedin")) a.href = LINKEDIN;
+      if (a.textContent.toLowerCase().includes("github")) a.href = GITHUB;
+    });
+
+    // Copy email
+    const copyBtn = document.getElementById("copyEmailBtn");
+    copyBtn.addEventListener("click", async () => {
+      try{
+        await navigator.clipboard.writeText(EMAIL);
+        copyBtn.textContent = "Kopierat!";
+        setTimeout(()=> copyBtn.textContent = "Kopiera e-post", 1200);
+      }catch{
+        window.prompt("Kopiera e-post:", EMAIL);
+      }
+    });
+
+    // mailto contact form (no backend)
+    document.getElementById("contactForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const fromEmail = document.getElementById("fromEmail").value.trim();
+      const message = document.getElementById("message").value.trim();
+
+      const subject = encodeURIComponent(`Kontakt via e-portfolio${name ? " — " + name : ""}`);
+      const body = encodeURIComponent(
+        `Hej Simon,\n\n` +
+        `${message || "[Skriv ditt meddelande här]"}\n\n` +
+        `—\n` +
+        `${name || "[Ditt namn]"}\n` +
+        `${fromEmail || "[Din e-post]"}`
+      );
+
+      window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
+    });
+  </script>
 </body>
 </html>
